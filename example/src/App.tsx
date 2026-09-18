@@ -18,6 +18,7 @@ import {
   aggregateRecord,
   AggregateResultRecordType,
   DeviceType,
+  ExerciseSegmentType,
   ExerciseType,
   getChanges,
   getGrantedPermissions,
@@ -216,6 +217,37 @@ const createSampleRecord = (
         exerciseType: ExerciseType.RUNNING,
         title: `Sample Run ${Math.floor(Math.random() * 1000)}`,
         exerciseRoute: { route: generateExerciseRoute(startTime) },
+        segments: [
+          {
+            startTime: new Date(
+              startTime.getTime() + 10 * 60 * 1000
+            ).toISOString(),
+            endTime: new Date(
+              startTime.getTime() + 20 * 60 * 1000
+            ).toISOString(),
+            segmentType: ExerciseSegmentType.PAUSE,
+            repetitions: 0,
+          },
+          {
+            startTime: new Date(
+              startTime.getTime() + 35 * 60 * 1000
+            ).toISOString(),
+            endTime: new Date(
+              startTime.getTime() + 40 * 60 * 1000
+            ).toISOString(),
+            segmentType: ExerciseSegmentType.REST,
+            repetitions: 0,
+          },
+        ],
+        laps: [
+          {
+            startTime: startTime.toISOString(),
+            endTime: new Date(
+              startTime.getTime() + 30 * 60 * 1000
+            ).toISOString(),
+            length: { unit: 'meters', value: 1000 },
+          },
+        ],
         metadata: buildMetadata(),
       };
     case 'SkinTemperature': {
